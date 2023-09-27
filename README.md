@@ -110,3 +110,7 @@ makepkg -si
 rm -r paru
 ```
 And voilà !
+
+PS :
+- [Backlight](https://wiki.archlinux.org/title/backlight) with Brightnessctl
+- [Audio system](https://wiki.archlinux.org/title/sound_system) with pipewire/wireplumber
