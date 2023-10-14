@@ -1,5 +1,5 @@
 # Arch-install
-Personal arch installation ( This is not a tutorial, just my newbie way of doing things )
+*Personal arch installation ( This is not a tutorial, just my newbie way of doing things )*
 
 - Set keyboard apping and checking we're in efi 64
 ```
@@ -18,7 +18,7 @@ ping archlinux.org
 ```
 - Partitionnning the disk (disk name here [sda]) with cfdisk, use GPT, create 3 partitions with the specified type :
     - [sda1] : ~1G - EFI  System
-    - [sda2] : ~RAM*1,5G - Linux Swap
+    - [sda2] : ~[RAM SIZE]*1,5G - Linux Swap
     - [sda3] : ?G - Linux filesystem
     - Then write it
 ```
@@ -38,14 +38,13 @@ mount /dev/[sda1] /mnt/boot/efi
 swapon /dev/[sda2]
 lsblk
 ```
-- Sorting mirrors and syncing database
+- syncing database
 ```
-reflector -–verbose -l 100 -n 20 -c fr -p https --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 ```
 - Installing linux core and some necessary utils
 ```
-pacstrap -K /mnt base base-devel linux linux-firmware nano git
+pacstrap -K /mnt base base-devel linux linux-firmware git pacman-contrib nano
 genfstab -U -p /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ```
@@ -71,7 +70,7 @@ nano /etc/hosts
 mkinitcpio -P
 ```
 - Setting root password, adding user, granting sudo rights
-    - delete "#" before "wheel group" (with password lol)
+    - delete "#" before "wheel group"
 ```
 passwd
 useradd -m -G wheel -s /bin/bash [username]
@@ -99,18 +98,13 @@ nmcli device wifi connect [ssid] password [password]
 ping archlinux.org
 pacman -Syu
 ```
-- Setting Paru AUR manager
-    - write Colour and ILoveCandy in /etc/pacman.conf UwU
+- write Colour and ILoveCandy in /etc/pacman.conf UwU
 ```
 pacman -S --needed base-devel
 nano /etc/pacman.conf
-git clone htyps://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
-rm -r paru
 ```
 And voilà !
 
-PS :
+*Sound and backlight :*
 - [Backlight](https://wiki.archlinux.org/title/backlight) with Brightnessctl
 - [Audio system](https://wiki.archlinux.org/title/sound_system) with pipewire/wireplumber
